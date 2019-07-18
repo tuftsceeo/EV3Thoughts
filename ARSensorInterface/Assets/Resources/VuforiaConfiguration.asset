@@ -64,6 +64,6 @@ MonoBehaviour:
     autoInitTracker: 0
     autoStartTracker: 0
   webcam:
-    deviceNameSetInEditor: HUE HD Camera
+    deviceNameSetInEditor: FaceTime HD Camera
     turnOffWebCam: 0
     renderTextureLayer: 30

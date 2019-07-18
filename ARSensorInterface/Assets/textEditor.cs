@@ -60,6 +60,31 @@ public class textEditor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (PlayerPrefs.GetInt("player_prefs_color") == 1)
+        {
+            sphere_for_color.transform.localPosition = new Vector3(PlayerPrefs.GetFloat("color_transform_x"), PlayerPrefs.GetFloat("color_transform_y"), PlayerPrefs.GetFloat("color_transform_z"));
+        }
+        if (PlayerPrefs.GetInt("player_prefs_cone") == 1)
+        {
+            cone_for_distance.transform.localPosition = new Vector3(PlayerPrefs.GetFloat("cone_transform_x"), PlayerPrefs.GetFloat("cone_transform_y"), PlayerPrefs.GetFloat("cone_transform_z"));
+        }
+        if (PlayerPrefs.GetInt("player_prefs_touch") == 1)
+        {
+            sphere_for_touch.transform.localPosition = new Vector3(PlayerPrefs.GetFloat("touch_transform_x"), PlayerPrefs.GetFloat("touch_transform_y"), PlayerPrefs.GetFloat("touch_transform_z"));
+        }
+        if (PlayerPrefs.GetInt("player_prefs_gyro") == 1)
+        {
+            angle_visual.transform.localPosition = new Vector3(PlayerPrefs.GetFloat("gyro_transform_x"), PlayerPrefs.GetFloat("gyro_transform_y"), PlayerPrefs.GetFloat("gyro_transform_z"));
+        }
+        if (PlayerPrefs.GetInt("player_prefs_data") == 1)
+        {
+            all_data_panel.transform.localPosition = new Vector3(PlayerPrefs.GetFloat("data_transform_x"), PlayerPrefs.GetFloat("data_transform_y"), PlayerPrefs.GetFloat("data_transform_z"));
+        }
+        if (PlayerPrefs.GetInt("player_prefs_arrows") == 1)
+        {
+            all_arrows.transform.localPosition = new Vector3(PlayerPrefs.GetFloat("arrows_transform_x"), PlayerPrefs.GetFloat("arrows_transform_y"), PlayerPrefs.GetFloat("arrows_transform_z"));
+        }
+
         tmProh = GetComponent<TextMeshPro>() ?? gameObject.AddComponent<TextMeshPro>();
     
         Debug.Log("here comes the incoming text");
@@ -189,7 +214,11 @@ public class textEditor : MonoBehaviour
                 Debug.Log("Color Sensor");
                 if (clicked.apply == true)
                 {
+                    PlayerPrefs.SetInt("player_prefs_color", 1);
                     sphere_for_color.transform.localPosition = new Vector3(float.Parse(x_input.text), float.Parse(y_input.text), float.Parse(z_input.text));
+                    PlayerPrefs.SetFloat("color_transform_x", sphere_for_color.transform.localPosition.x);
+                    PlayerPrefs.SetFloat("color_transform_y", sphere_for_color.transform.localPosition.y);
+                    PlayerPrefs.SetFloat("color_transform_z", sphere_for_color.transform.localPosition.z);
                     clicked.apply_equals_false();
                     break;
                 }
@@ -199,7 +228,11 @@ public class textEditor : MonoBehaviour
                 Debug.Log("Ultrasonic Sensor");
                 if (clicked.apply == true)
                 {
+                    PlayerPrefs.SetInt("player_prefs_cone", 1);
                     cone_for_distance.transform.localPosition = new Vector3(float.Parse(x_input.text), float.Parse(y_input.text), float.Parse(z_input.text));
+                    PlayerPrefs.SetFloat("cone_transform_x", cone_for_distance.transform.localPosition.x);
+                    PlayerPrefs.SetFloat("cone_transform_y", cone_for_distance.transform.localPosition.y);
+                    PlayerPrefs.SetFloat("cone_transform_z", cone_for_distance.transform.localPosition.z);
                     clicked.apply_equals_false();
                     break;
                 }
@@ -209,7 +242,11 @@ public class textEditor : MonoBehaviour
                 Debug.Log("Touch Sensor");
                 if (clicked.apply == true)
                 {
+                    PlayerPrefs.SetInt("player_prefs_touch", 1);
                     sphere_for_touch.transform.localPosition = new Vector3(float.Parse(x_input.text), float.Parse(y_input.text), float.Parse(z_input.text));
+                    PlayerPrefs.SetFloat("touch_transform_x", sphere_for_touch.transform.localPosition.x);
+                    PlayerPrefs.SetFloat("touch_transform_y", sphere_for_touch.transform.localPosition.y);
+                    PlayerPrefs.SetFloat("touch_transform_z", sphere_for_touch.transform.localPosition.z);
                     clicked.apply_equals_false();
                     break;
                 }
@@ -219,7 +256,11 @@ public class textEditor : MonoBehaviour
                 Debug.Log("Gyroscopic Sensor");
                 if (clicked.apply == true)
                 {
+                    PlayerPrefs.SetInt("player_prefs_gyro", 1);
                     angle_visual.transform.localPosition = new Vector3(float.Parse(x_input.text), float.Parse(y_input.text), float.Parse(z_input.text));
+                    PlayerPrefs.SetFloat("gyro_transform_x", angle_visual.transform.localPosition.x);
+                    PlayerPrefs.SetFloat("gyro_transform_y", angle_visual.transform.localPosition.y);
+                    PlayerPrefs.SetFloat("gyro_transform_z", angle_visual.transform.localPosition.z);
                     clicked.apply_equals_false();
                     break;
                 }
@@ -229,7 +270,11 @@ public class textEditor : MonoBehaviour
                 Debug.Log("Data Panel");
                 if (clicked.apply == true)
                 {
+                    PlayerPrefs.SetInt("player_prefs_data", 1);
                     all_data_panel.transform.localPosition = new Vector3(float.Parse(x_input.text), float.Parse(y_input.text), float.Parse(z_input.text));
+                    PlayerPrefs.SetFloat("data_transform_x", all_data_panel.transform.localPosition.x);
+                    PlayerPrefs.SetFloat("data_transform_y", all_data_panel.transform.localPosition.y);
+                    PlayerPrefs.SetFloat("data_transform_z", all_data_panel.transform.localPosition.z);
                     clicked.apply_equals_false();
                     break;
                 }
@@ -239,7 +284,11 @@ public class textEditor : MonoBehaviour
                 Debug.Log("Movement");
                 if (clicked.apply == true)
                 {
+                    PlayerPrefs.SetInt("player_prefs_arrows", 1);
                     all_arrows.transform.localPosition = new Vector3(float.Parse(x_input.text), float.Parse(y_input.text), float.Parse(z_input.text));
+                    PlayerPrefs.SetFloat("arrows_transform_x", all_arrows.transform.localPosition.x);
+                    PlayerPrefs.SetFloat("arrows_transform_y", all_arrows.transform.localPosition.y);
+                    PlayerPrefs.SetFloat("arrows_transform_z", all_arrows.transform.localPosition.z);
                     clicked.apply_equals_false();
                     break;
                 }

@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - SimpleHealthBar
     - StabilizeObject
     - TurnTheGameOn.ArrowWaypointer.Waypoint
     - TurnTheGameOn.ArrowWaypointer.WaypointController
@@ -32,6 +33,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.RectMask2D
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
+    - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     Vuforia.UnityExtensions.dll:
     - Vuforia.ImageTargetBehaviour
@@ -74,41 +76,41 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9436}
+      Script: {instanceID: 9498}
     - Class: 114
-      Script: {instanceID: 9438}
+      Script: {instanceID: 9500}
     - Class: 114
-      Script: {instanceID: 9444}
+      Script: {instanceID: 9506}
     - Class: 114
-      Script: {instanceID: 9450}
+      Script: {instanceID: 9512}
     - Class: 114
-      Script: {instanceID: 9458}
+      Script: {instanceID: 9520}
     - Class: 114
-      Script: {instanceID: 9482}
+      Script: {instanceID: 9544}
     - Class: 114
-      Script: {instanceID: 9494}
+      Script: {instanceID: 9556}
     - Class: 114
-      Script: {instanceID: 9516}
+      Script: {instanceID: 9576}
     - Class: 114
-      Script: {instanceID: 9658}
+      Script: {instanceID: 9714}
     - Class: 114
-      Script: {instanceID: 9874}
+      Script: {instanceID: 9896}
     - Class: 114
-      Script: {instanceID: 9970}
+      Script: {instanceID: 9988}
     - Class: 114
-      Script: {instanceID: 10166}
+      Script: {instanceID: 10176}
     - Class: 114
-      Script: {instanceID: 10394}
+      Script: {instanceID: 10386}
+    - Class: 114
+      Script: {instanceID: 10418}
     - Class: 114
       Script: {instanceID: 10430}
     - Class: 114
-      Script: {instanceID: 10442}
+      Script: {instanceID: 10500}
     - Class: 114
-      Script: {instanceID: 10526}
+      Script: {instanceID: 10550}
     - Class: 114
-      Script: {instanceID: 10586}
-    - Class: 114
-      Script: {instanceID: 10830}
+      Script: {instanceID: 10772}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -155,59 +157,65 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9330}
+      Script: {instanceID: 9406}
     - Class: 114
-      Script: {instanceID: 9350}
-    - Class: 114
-      Script: {instanceID: 9436}
-    - Class: 114
-      Script: {instanceID: 9438}
-    - Class: 114
-      Script: {instanceID: 9444}
-    - Class: 114
-      Script: {instanceID: 9450}
-    - Class: 114
-      Script: {instanceID: 9458}
-    - Class: 114
-      Script: {instanceID: 9466}
-    - Class: 114
-      Script: {instanceID: 9482}
-    - Class: 114
-      Script: {instanceID: 9484}
-    - Class: 114
-      Script: {instanceID: 9486}
-    - Class: 114
-      Script: {instanceID: 9494}
+      Script: {instanceID: 9426}
     - Class: 114
       Script: {instanceID: 9498}
     - Class: 114
-      Script: {instanceID: 9516}
+      Script: {instanceID: 9500}
     - Class: 114
-      Script: {instanceID: 9792}
+      Script: {instanceID: 9506}
     - Class: 114
-      Script: {instanceID: 9892}
+      Script: {instanceID: 9512}
     - Class: 114
-      Script: {instanceID: 9938}
+      Script: {instanceID: 9520}
     - Class: 114
-      Script: {instanceID: 9960}
+      Script: {instanceID: 9528}
     - Class: 114
-      Script: {instanceID: 9968}
+      Script: {instanceID: 9544}
     - Class: 114
-      Script: {instanceID: 10416}
+      Script: {instanceID: 9546}
     - Class: 114
-      Script: {instanceID: 10430}
+      Script: {instanceID: 9548}
     - Class: 114
-      Script: {instanceID: 10526}
+      Script: {instanceID: 9556}
     - Class: 114
-      Script: {instanceID: 10568}
+      Script: {instanceID: 9558}
     - Class: 114
-      Script: {instanceID: 10586}
+      Script: {instanceID: 9560}
     - Class: 114
-      Script: {instanceID: 10696}
+      Script: {instanceID: 9576}
     - Class: 114
-      Script: {instanceID: 10930}
+      Script: {instanceID: 9644}
     - Class: 114
-      Script: {instanceID: 11028}
+      Script: {instanceID: 9764}
+    - Class: 114
+      Script: {instanceID: 9822}
+    - Class: 114
+      Script: {instanceID: 9912}
+    - Class: 114
+      Script: {instanceID: 9956}
+    - Class: 114
+      Script: {instanceID: 9978}
+    - Class: 114
+      Script: {instanceID: 9986}
+    - Class: 114
+      Script: {instanceID: 10404}
+    - Class: 114
+      Script: {instanceID: 10418}
+    - Class: 114
+      Script: {instanceID: 10500}
+    - Class: 114
+      Script: {instanceID: 10538}
+    - Class: 114
+      Script: {instanceID: 10550}
+    - Class: 114
+      Script: {instanceID: 10652}
+    - Class: 114
+      Script: {instanceID: 10866}
+    - Class: 114
+      Script: {instanceID: 10964}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -705,6 +713,12 @@ ScriptsOnlyBuild:
     className: panelControl
   - hash:
       serializedVersion: 2
+      Hash: 47ae48abce9af98a7ffa8e1b02193ab7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SimpleHealthBar
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -987,6 +1001,12 @@ ScriptsOnlyBuild:
     className: WireframeTrackableEventHandler
   - hash:
       serializedVersion: 2
+      Hash: 390088f0181e3bc83c883614bf07d674
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: SimpleHealthBar_SpaceshipExample
+    className: AsteroidController
+  - hash:
+      serializedVersion: 2
       Hash: 6d58aaa44a2f9ac1323bd21749a524ae
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -1245,10 +1265,22 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
+      Hash: f406ebcbf42de1bd447d141184730003
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: SimpleHealthBar_SpaceshipExample
+    className: PlayerController
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SwingObject
+  - hash:
+      serializedVersion: 2
+      Hash: 3f6497af7f33bfe55504c5c173f9c404
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: SimpleHealthBar_SpaceshipExample
+    className: HealthPickupController
   - hash:
       serializedVersion: 2
       Hash: 0cc9e5f5509bf937d0b8146219566b76
@@ -1269,7 +1301,7 @@ ScriptsOnlyBuild:
     className: SignalReceiver
   - hash:
       serializedVersion: 2
-      Hash: 4a0369cd366c126cd420018a4ac01f32
+      Hash: 35a9693c388776aaf487636491a20f11
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_FontAsset
@@ -1285,6 +1317,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: ActivationPlayableAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 062a1574b487513bfe53b326958cdc43
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: SimpleHealthBar_SpaceshipExample
+    className: PlayerHealth
   - hash:
       serializedVersion: 2
       Hash: 88cc9df3c6fc697bfbeacd24c0d6f2d7
@@ -1419,7 +1457,7 @@ ScriptsOnlyBuild:
     className: CharacterControllerThirdPerson
   - hash:
       serializedVersion: 2
-      Hash: 903be0f65de4f1feb86cc0378978562e
+      Hash: 807d83c7c8eaf625cc73d9689cfaea0e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: textEditor
@@ -1653,6 +1691,12 @@ ScriptsOnlyBuild:
     className: UserControlThirdPerson
   - hash:
       serializedVersion: 2
+      Hash: 39abe8ae2d89af2dc09cf3c0bee60d97
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: SimpleHealthBar_SpaceshipExample
+    className: GameManager
+  - hash:
+      serializedVersion: 2
       Hash: 8220b46879dc5e37db1b940c938f5744
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -1877,4 +1921,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/thoughtBubble.unity
-  playerPath: /Users/mohammedemun/Desktop/EV3 DEMO/EV3_Thoughts/ARSensorInterface/EV3AR_DEMO_Build
+  playerPath: /Users/mohammedemun/Desktop/EV3_Thoughts/EV3Thoughts/EV3Thoughts_Build

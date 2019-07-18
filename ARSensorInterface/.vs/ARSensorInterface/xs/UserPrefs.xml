@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{608676E5-F072-9A54-3D98-C10CC89C51C0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/url_info.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/textEditor.cs">
     <Files>
-      <File FileName="Assets/textEditor.cs" Line="83" Column="49" />
+      <File FileName="Assets/textEditor.cs" Line="208" Column="43" />
       <File FileName="Assets/url_info.cs" Line="1" Column="1" />
     </Files>
     <Pads>
@@ -12,7 +12,7 @@
               <Node name="Simple Health Bar" expanded="True">
                 <Node name="Scripts" expanded="True" />
               </Node>
-              <Node name="url_info.cs" selected="True" />
+              <Node name="textEditor.cs" selected="True" />
             </Node>
           </Node>
         </State>

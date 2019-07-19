@@ -63,13 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\clicked.cs" />
-    <Compile Include="Assets\ConeCollider\Samples\Sample_1\CameraRotate.cs" />
-    <Compile Include="Assets\ConeCollider\Samples\Sample_1\InCheck.cs" />
-    <Compile Include="Assets\ConeCollider\Samples\Sample_2\SwingObject.cs" />
-    <Compile Include="Assets\ConeCollider\Samples\Sample_3\EnemyFind.cs" />
-    <Compile Include="Assets\ConeCollider\Samples\Sample_3\PlayerMove.cs" />
-    <Compile Include="Assets\ConeCollider\Script\ColliderTest.cs" />
-    <Compile Include="Assets\ConeCollider\Script\ConeCollider.cs" />
     <Compile Include="Assets\debugText.cs" />
     <Compile Include="Assets\GyroSensor.cs" />
     <Compile Include="Assets\helloPanel.cs" />

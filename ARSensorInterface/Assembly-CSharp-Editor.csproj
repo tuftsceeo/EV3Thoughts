@@ -62,11 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Mesh Rotator\Editor\Rotationtool.cs" />
-    <Compile Include="Assets\Simple Health Bar\Editor\SimpleHealthBarEditor.cs" />
-    <Compile Include="Assets\Simple Health Bar\Editor\SimpleHealthBarWindow.cs" />
     <Compile Include="Assets\TurnTheGameOn\Arrow WayPointer\Scripts\Editor\Editor_WaypointController.cs" />
-    <None Include="Assets\Editor\Vuforia\CylinderTargetTextures\VuforiaMars_Images\authoringinfo.xml" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/mohammedemun/Desktop/EV3_Thoughts/EV3Thoughts/ARSensorInterface/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

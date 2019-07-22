@@ -1,8 +1,10 @@
 ﻿<Properties StartupConfiguration="{608676E5-F072-9A54-3D98-C10CC89C51C0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/textEditor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs">
     <Files>
       <File FileName="Assets/textEditor.cs" Line="171" Column="55" />
       <File FileName="Assets/url_info.cs" />
+      <File FileName="Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile.shader" Line="230" Column="1" />
+      <File FileName="Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs" Line="6675" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,7 +14,13 @@
               <Node name="Simple Health Bar" expanded="True">
                 <Node name="Scripts" expanded="True" />
               </Node>
-              <Node name="textEditor.cs" selected="True" />
+              <Node name="TextMesh Pro" expanded="True">
+                <Node name="Resources" expanded="True">
+                  <Node name="Shaders" expanded="True">
+                    <Node name="TMP_SDF-Mobile.shader" selected="True" />
+                  </Node>
+                </Node>
+              </Node>
             </Node>
           </Node>
         </State>
@@ -21,7 +29,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="996c1a78-d1aa-4bdf-9e4f-c4f56f9e26ef" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="e1e07e21-95b2-401f-a4a5-cba2acc32fa4" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

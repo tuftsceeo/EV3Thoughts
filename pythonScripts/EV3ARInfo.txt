@@ -1,0 +1,51 @@
+EV3ARInfo.txt
+Lily Zhang and Mohammed Emun
+7/30/19
+Purpose: holds information for users of EV3ARScript
+
+
+##################### INFO ##########################
+
+Goal: work with your team to move your EV3 robot through an obstacle course!
+Using the augmented reality app, you can "see" what the robot is sensing.
+Note: EV3 sensors are not the most advanced or accurate. It is helpful to use AR
+to see the limitations of the sensors and the capabilities of the EV3.
+In addition, there will be a bit of delay in the AR visualizations in the app,
+due to a time lag while uploading data.
+The data will update fully if EV3 is paused for several seconds.
+
+-------------------------------------------------------------
+
+FUNCTIONS AVAILABLE:
+--getDist(): returns distance from nearest obstacle in cm
+--getColor(): returns color the EV3 is currently detecting;
+  colors available are: 'unknown','black','blue','green','yellow','red','white','brown'
+--getAngle(): returns angle offset from starting position (0 to 360 degrees)
+--getTouch(): returns 1 if touch sensor is pushed, 0 if not; takes ~2 seconds to update;
+  sensor must be held down for result
+--forward(numSeconds,speed): moves robot forward for numSeconds; speed is optional argument;
+  default speed is 35
+--backward(numSeconds,speed): moves robot backward for numSeconds; speed is optional argument; 
+  default speed is 35
+--left(numDegrees): turns robot left numDegrees (0-360); accurate to approx 5 degrees
+--right(numDegrees): turns robot right numDegrees (0-360); accurate to approx 5 degrees
+--stop(): stops robot movement
+--sleep(decimal/integer): pauses for given amount of time
+--print("body of print"): prints debug statements to terminal
+--printAR("hello world"): prints debug statements to text panel in AR app
+
+NOTE: The program will end after all your code is finished running.
+
+Feel free to use conditional statements (while, if, etc) and other methods 
+to move your robot through the obstacle course!
+
+----------------------------------------------------------------
+
+Example code: 
+   while (getColor() != 'green'):
+       forward(1)
+   stop()
+   left(90)
+   forward(2,40)
+   stop()
+   forward(1)

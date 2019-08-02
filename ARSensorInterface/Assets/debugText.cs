@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Used to read out information to the data panel on the bottom of the AR app 
+
 public class debugText : MonoBehaviour
 {
     private string testMessage;

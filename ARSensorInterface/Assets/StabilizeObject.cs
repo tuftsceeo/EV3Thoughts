@@ -6,6 +6,7 @@ public class StabilizeObject : MonoBehaviour
 {
     public GameObject speech_bubble;
     public GameObject angle;
+    public GameObject angle_needle;
     public GameObject touch;
 
     // Start is called before the first frame update
@@ -20,6 +21,7 @@ public class StabilizeObject : MonoBehaviour
     {
         speech_bubble.transform.LookAt(Camera.main.transform.position, Vector3.up);
         angle.transform.LookAt(Camera.main.transform.position, Vector3.up);
+        angle_needle.transform.LookAt(Camera.main.transform.position, Vector3.up);
         touch.transform.LookAt(Camera.main.transform.position, Vector3.up);
     }
 

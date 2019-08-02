@@ -280,6 +280,9 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="M2Mqtt.Net">
+      <HintPath>/Users/mohammedemun/Desktop/EV3_Thoughts/EV3Thoughts/ARSensorInterface/Assets/M2Mqtt.Net.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>/Users/mohammedemun/Desktop/EV3_Thoughts/EV3Thoughts/ARSensorInterface/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>

@@ -63,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\background_change_toggle.cs" />
-    <Compile Include="Assets\clicked.cs" />
     <Compile Include="Assets\debugText.cs" />
     <Compile Include="Assets\GyroSensor.cs" />
     <Compile Include="Assets\helloPanel.cs" />
@@ -362,6 +361,9 @@
     </Reference>
     <Reference Include="Vuforia.UnityExtensions">
       <HintPath>/Applications/Unity/Hub/Editor/2019.1.10f1/PlaybackEngines/VuforiaSupport/Managed/Runtime/Vuforia.UnityExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="M2Mqtt.Net">
+      <HintPath>/Users/mohammedemun/Desktop/EV3_Thoughts/EV3Thoughts/ARSensorInterface/Assets/M2Mqtt.Net.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>/Users/mohammedemun/Desktop/EV3_Thoughts/EV3Thoughts/ARSensorInterface/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>

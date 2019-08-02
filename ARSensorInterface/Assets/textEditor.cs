@@ -64,6 +64,7 @@ public class textEditor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Saves the user prefeneces, if the use exits out the app, the prefences for any manipulation on visualization position is saved 
         if (PlayerPrefs.GetInt("player_prefs_color") == 1)
         {
             x_input.text = (PlayerPrefs.GetFloat("color_transform_x")).ToString();

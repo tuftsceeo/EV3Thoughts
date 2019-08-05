@@ -42,8 +42,6 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
-    Vuforia.UnityExtensions.Editor.dll:
-    - Vuforia.EditorClasses.VuforiaConfigurationEditor
     Vuforia.UnityExtensions.dll:
     - Vuforia.ImageTargetBehaviour
     - Vuforia.TurnOffBehaviour
@@ -77,10 +75,6 @@ ScriptsOnlyBuild:
     - Class: 65
       Script: {instanceID: 0}
     - Class: 81
-      Script: {instanceID: 0}
-    - Class: 82
-      Script: {instanceID: 0}
-    - Class: 83
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
@@ -163,10 +157,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
-    - Class: 82
-      Script: {instanceID: 0}
-    - Class: 83
-      Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
     - Class: 91
@@ -248,7 +238,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11120}
     - Class: 114
-      Script: {instanceID: 13594}
+      Script: {instanceID: 13580}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -302,7 +292,7 @@ ScriptsOnlyBuild:
     className: Z_plus
   - hash:
       serializedVersion: 2
-      Hash: dd3118d746d79bb1117a628f97e791ff
+      Hash: 0729e4eea2d97f5d44137fe48ba8dcc9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StabilizeObject

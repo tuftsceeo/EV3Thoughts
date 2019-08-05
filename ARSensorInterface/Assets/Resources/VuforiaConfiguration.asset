@@ -16,10 +16,10 @@ MonoBehaviour:
     vuforiaLicenseKey: AV7xtxn/////AAABmWH5VAaSHUL7v/sQo53hIfMMkk4trwe/nFAkScEq8J3v0JYogOEdHz++YSaH8F57bFUjPjhdwXnaT6i6yaI1Xncf4abH3Ei0RHftroyyJN1O63S5uIHn/IueokcLv3no3sJC2jSGuwm0p/GvFMCBzZpEBySU70MtzwzovWWQ7WWahAV7G4CndL1Cx9NPQbHuxGHgHSefdxgL1n0C2J7AKBf2PWAFNPIQ5d/cyxi2UbeW8a1nVSPuhFPNPStX8uq1yxxU/j2d3sxwqFkRtB9nIrgTlXUKeXciev4Wk/t2K1m3qQfhakKjb/+/Wd7+UtmFR+FG5lVUXZtSNdqi+xUxCapu+b3bwppQJENrtZaQhc7o
     ufoLicenseKey: QWF1QVErMy8vLy8vQUFBQUtNV28xK25QOVVCQXMzWldnOURwVG9VZ2tPT0xtV2pBdXRPMmpySkJiSHNSemRDRU1jNENkYTY0MXBRVHJ2czNsb1Q4dGlKSHlFMmJMR1dwekpISDBZUGRzQ29sQStkSmdJZnE4Q013Q0Y0aUZyVVMvQXVuSWVyRW0rbjI4cG1JRU10MTNMeDhqaElwdmpCSVNwa2NRbGsxaUdROTRqUXJzcDJ0VGl6d1Q2c3dYcHAwbmZYdVp6cklMOFhCQUZPdHdDWnR6amhBV1lzeW54M2JOVzAyZ0w0eHB3SjhZY2txY1ZYc0RKTytuTDhwVU42M2ZqWi8wMVFvcURsdjVrRW1lbjkzTnQrMHJhMG4vekNrczdmaXgvUU9PbVhTTndBQTc0bHloeHZTTENQcDkyWGR5OTlLZWRJK1B0WWFXYi9ZNjFHVXBhMGRBei9wVHBBWHRFVUpOZ3krOUJ5UGkxWDVwUlpHbzFjcDN1akk=
     delayedInitialization: 0
-    cameraDeviceModeSetting: -3
+    cameraDeviceModeSetting: -1
     maxSimultaneousImageTargets: 10
     maxSimultaneousObjectTargets: 10
-    useDelayedLoadingObjectTargets: 1
+    useDelayedLoadingObjectTargets: 0
     modelTargetRecoWhileExtendedTracked: 1
     version: 8.3.8
     eulaAcceptedVersions: '{"Values":["7.1","7.2","7.5","8.0","8.1","0.0","7.7","7.9","8.2","8.3"]}'
@@ -54,8 +54,8 @@ MonoBehaviour:
     matteShader: {fileID: 4800000, guid: 66d0d78a3000021448b598bb54a3bfdf, type: 3}
     videoBackgroundEnabled: 1
   deviceTracker:
-    autoInitTracker: 1
-    autoStartTracker: 1
+    autoInitTracker: 0
+    autoStartTracker: 0
     arcoreRequirement: 1
     trackingMode: 1
     posePrediction: 0
@@ -66,6 +66,6 @@ MonoBehaviour:
     autoInitTracker: 0
     autoStartTracker: 0
   webcam:
-    deviceNameSetInEditor: FULL HD 1080P Webcam
+    deviceNameSetInEditor: FaceTime HD Camera
     turnOffWebCam: 0
     renderTextureLayer: 30

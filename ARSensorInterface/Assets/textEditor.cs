@@ -1,21 +1,29 @@
 ﻿// Lily Zhang and Mohammed Emun
-// 6/17/2019
-// AR Thought Bubble display contents for EV3 Legobot
+// 8/5/19
+// Handles IoT communication and visualization setup
+// This version uses MQTT communication and does not contain sound/AR extension
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using UnityEngine.Networking;
-using MiniJSON;
+using System.Security.Cryptography.X509Certificates;
+using uPLibrary.Networking.M2Mqtt.Messages;
+using uPLibrary.Networking.M2Mqtt;
+using System.Net.Security;
+using TMPro;
+using MiniJSON; // https://gist.github.com/darktable/1411710
+
 
 public class textEditor : MonoBehaviour
 {
+    // login variables
     public static string url;
     public static string user;
     public static string pass;
-    public TextMeshProUGUI tmpText;
+
+    // visualizations
     public GameObject forward_line;
     public GameObject right_line;
     public GameObject left_line;
@@ -26,23 +34,27 @@ public class textEditor : MonoBehaviour
     public GameObject angle_visual;
     public GameObject all_data_panel;
     public GameObject all_arrows; 
+
+    // initialization for visualizations
     Vector3 temp;
     Vector3 temp_2;
     Vector3 temp_3;
     Vector3 temp_4;
     Vector3 temp_5;
     private TMPro.TextMeshPro tmProh;
-    private object distReading = null;
-    private object colorReading = null;
-    private object angleReading = null;
-    private object touchReading = null;
-    private object forwardReading = null;
-    private object rightReading = null;
-    private object leftReading = null;
-    private object batteryReading = null; 
-    public static object scriptReading = null;
+    public TextMeshProUGUI tmpText;
+    private object distReading = 0;
+    private object colorReading = 0;
+    private object angleReading = 0;
+    private object touchReading = 0;
+    private object forwardReading = 0;
+    private object rightReading = 0;
+    private object leftReading = 0;
+    private object batteryReading = 0; 
+    public static object scriptReading = "hello there";
     public SimpleHealthBar BatteryPower;
-    // Dropdown variables
+
+    // Sensor menu dropdown variables
     public TMPro.TMP_Dropdown select_visualization;
     public TMPro.TMP_InputField x_input;
     public TMPro.TMP_InputField y_input;
@@ -58,13 +70,14 @@ public class textEditor : MonoBehaviour
     private double z_mov_total_val;
     private bool apply;
 
-    // END of dropdown variables
-
+    // MQTT variables
+    private MqttClient client;
+    private string broker = "iot.eclipse.org";
 
     // Start is called before the first frame update
     void Start()
     {
-        // Saves the user prefeneces, if the use exits out the app, the prefences for any manipulation on visualization position is saved 
+        // initialize visualization locations
         if (PlayerPrefs.GetInt("player_prefs_color") == 1)
         {
             x_input.text = (PlayerPrefs.GetFloat("color_transform_x")).ToString();
@@ -126,24 +139,49 @@ public class textEditor : MonoBehaviour
             all_arrows.transform.localPosition = new Vector3(PlayerPrefs.GetFloat("arrows_transform_x"), PlayerPrefs.GetFloat("arrows_transform_y"), PlayerPrefs.GetFloat("arrows_transform_z"));
         }
 
+        // initialize panel text
         tmProh = GetComponent<TextMeshPro>() ?? gameObject.AddComponent<TextMeshPro>();
-    
-        Debug.Log("here comes the incoming text");
-        tmpText.text = "hallelujah";
-
+        tmpText.text = "LOADING...";
         tmProh.text = tmpText.text;
-        Debug.Log(tmProh.text);
 
-        StartCoroutine(GetRequest());
+        // initialize MQTT connection
+        client = new MqttClient(broker);
+        // register to message received 
+        client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
+        string clientId = System.Guid.NewGuid().ToString();
+        try
+        {
+            client.Connect(clientId);
+            Debug.Log("CONNECTED");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("CONNECTION ERROR: " + e);
+            
+            // also print in text panel?
+        }
+        // subscribe to the topic "topic/EV3ARProject" with QoS 1
+        client.Subscribe(new string[] { "topic/EV3ARProject" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE });
+        
+        //StartCoroutine(GetRequest());
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("INSIDE UPDATE");
         // Battery Power
-        float battery_power;
-        battery_power = float.Parse((string)batteryReading);
+        //float battery_power = .78F;
+        Debug.Log("BATTERY READING INSIDE UPDATE IS " + batteryReading);
+        // check if any values are null; if so, break
+        // if batteryReading is null, so are the rest
+        if (batteryReading == null) {
+            return;
+        }
+
+        float battery_power = float.Parse(batteryReading.ToString());
+
         if (battery_power < 1 && battery_power > .50)
         {
             BatteryPower.UpdateColor(Color.green);
@@ -158,21 +196,28 @@ public class textEditor : MonoBehaviour
         }
         BatteryPower.UpdateBar(battery_power, 1);
 
-
-        string touch_output = (string)touchReading;
-        if ((string)touchReading == "1")
+        string touch_output;
+        if (touchReading.ToString() == "1")
             touch_output = "True";
-        else if ((string)touchReading == "0")
+        else if (touchReading.ToString() == "0")
             touch_output = "False";
+        else
+            touch_output = "what the heck";
 
-        string output = "Distance: " + (string)distReading + "cm" + "\n" + "Angle: " + (string)angleReading + "\n" + "Color: " + (string)colorReading + "\n" + "Touch: " + touch_output;
-        tmpText.text = output;
+
+        // update text panel display
+        Debug.Log("PRINTING STRING INSIDE UPDATE");
+        string output = "Distance: " + distReading.ToString() + "cm" + "\n" + "Angle: " + angleReading.ToString() + "\n" + "Color: " + colorReading.ToString() + "\n" + "Touch: " + touch_output;
+        Debug.Log(output);
         tmProh.text = output;
-        string color = (string)colorReading;
+        tmpText.text = output;
+
+        string color = colorReading.ToString();
         Color32 brown = new Color32(114, 96, 96, 255);
         // sets text bubble to corresponding color reading
         switch (color)
         {
+
             case "white":
                 sphere_for_color.GetComponent<Renderer>().material.color = Color.white;
                 break;
@@ -199,7 +244,7 @@ public class textEditor : MonoBehaviour
                 break;
         }
         // This is where the cone updates
-        double size_cone = double.Parse((string)distReading);
+        double size_cone = double.Parse(distReading.ToString());
         // Convert to inches
         size_cone = size_cone/3.2;
         // Convert to cm
@@ -212,7 +257,7 @@ public class textEditor : MonoBehaviour
         cone_for_distance.transform.localScale = temp;
 
         // This is where the sphere for touch updates
-        float sphere_touch = float.Parse((string)touchReading);
+        float sphere_touch = float.Parse(touchReading.ToString());
         temp_2 = sphere_for_touch.transform.localScale;
         //Debug.Log("the touch is-----" + sphere_touch);
         temp_2.z = sphere_touch/4;
@@ -221,11 +266,11 @@ public class textEditor : MonoBehaviour
         sphere_for_touch.transform.localScale = temp_2;
 
         // This is where the angle is measured
-        float angle = float.Parse((string)angleReading);
+        float angle = float.Parse(angleReading.ToString());
         needle_for_angle.transform.rotation = Quaternion.Euler(0, 0, angle);
 
         // This is where the forward is shown
-        float line_forward = float.Parse((string)forwardReading);
+        float line_forward = float.Parse(forwardReading.ToString());
         temp_3 = forward_line.transform.localScale;
         temp_3.z = line_forward;
         temp_3.y = line_forward;
@@ -233,7 +278,7 @@ public class textEditor : MonoBehaviour
         forward_line.transform.localScale = temp_3;
 
         // This is where the right is shown
-        float line_right = float.Parse((string)rightReading);
+        float line_right = float.Parse(rightReading.ToString());
         temp_4 = right_line.transform.localScale;
         temp_4.z = line_right;
         temp_4.y = line_right;
@@ -241,7 +286,7 @@ public class textEditor : MonoBehaviour
         right_line.transform.localScale = temp_4;
 
         // This is where the left is shown
-        float line_left = float.Parse((string)leftReading);
+        float line_left = float.Parse(leftReading.ToString());
         temp_5 = left_line.transform.localScale;
         temp_5.z = line_left;
         temp_5.y = line_left;
@@ -631,23 +676,12 @@ public class textEditor : MonoBehaviour
     // get sensor reading from Thingworx 
     IEnumerator GetRequest()
     {
-        //string auth = authenticate("CEEO", "cee0prek!");
         for (;;)
         {
             Debug.Log("INFORMATION: ");
             Debug.Log(url);
             Debug.Log(user);
             Debug.Log(pass);
-            string new_url;
-            new_url = "https://ptcacademic-dev3-twx.es.thingworx.com/Thingworx/Things/AR_Project/Properties/";
-            if (new_url == url)
-            {
-                Debug.Log("SAME!!!!");
-            }
-            else if (new_url != url)
-            {
-                Debug.Log("NOT SAME!!!!");
-            }
             UnityWebRequest request = new UnityWebRequest(url);
             request.SetRequestHeader("AUTHORIZATION", authenticate(user, pass));
             request.SetRequestHeader("Accept", "application/json");
@@ -700,7 +734,7 @@ public class textEditor : MonoBehaviour
                 leftReading = rowData["left"];
                 Debug.Log(leftReading);
                 scriptReading = rowData["script"];
-                batteryReading = rowData["power"];
+                batteryReading = (string)rowData["power"];
                 Debug.Log(batteryReading); 
             }
 
@@ -716,6 +750,49 @@ public class textEditor : MonoBehaviour
         auth = System.Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(auth));
         auth = "Basic " + auth;
         return auth;
+    }
+
+
+    // Handles incoming MQTT messages
+    // Sets visualization variables with updated values
+    void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
+    {
+        Debug.Log("INSIDE MQTT MSG PUBLISH RECEIVEED");
+        // handle message received 
+        string msg = System.Text.Encoding.UTF8.GetString(e.Message);
+        Debug.Log("Received message from " + e.Topic + " : " + msg);
+
+        // deserialize json?
+        // https://gist.github.com/darktable/1411710
+        var rowData = Json.Deserialize(msg) as Dictionary<string, object>;
+
+        //// put all property names into a list
+        //List<string> keyVals = new List<string>(rowData.Keys);
+        //foreach (string key1 in keyVals)
+        //{
+        //    Debug.Log(key1 + ": " + rowData[key1]);
+        //}
+
+        Debug.Log("PRINTING ACTUAL VALUES");
+        distReading = rowData["distance"];
+        Debug.Log("distance is " + distReading);
+        colorReading = rowData["color"];
+        Debug.Log("color is " + colorReading);
+        angleReading = rowData["angle"];
+        Debug.Log("angle is " + angleReading);
+        touchReading = rowData["touch"];
+        Debug.Log("touch is " + touchReading);
+        forwardReading = rowData["forward"];
+        Debug.Log("forward is " + forwardReading);
+        rightReading = rowData["right"];
+        Debug.Log("right is " + rightReading);
+        leftReading = rowData["left"];
+        Debug.Log("left is " + leftReading);
+        //scriptReading = rowData["script"];
+        //Debug.Log("script is " + scriptReading);
+        batteryReading = rowData["power"];
+        Debug.Log("power is " + batteryReading);
+
     }
 }
 

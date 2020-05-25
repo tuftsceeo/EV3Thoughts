@@ -14,7 +14,7 @@ The project is currently using **MQTT** to publish data to a public broker. Can 
   * *Script.py*: editable file to run EV3 while uploading data (**Call this file in terminal**) 
   * *EV3ARInfo.txt*: documentation for functions in Commands.py
   * *EV3ARCommands.py*: contains functions for movement, sensor data retrieval, and sensor data upload, using REST APIs (**Account may no longer be active**)
-  * EV3ARScript.py: editable file to run EV3 while uploading data using REST APIs (**Account may no longer be active**)
+  * *EV3ARScript.py*: editable file to run EV3 while uploading data using REST APIs (**Account may no longer be active**)
   * *apiPublisher.py*: continuously uploads sensor data to Thingworx Composer using REST APIs (**Account may no longer be active**)
   * *mqttPublisher.py*: continuously uploads sensor data to MQTT broker 
   * *driveEV3.py*: allows user to move EV3 around with keyboard

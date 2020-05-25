@@ -8,6 +8,7 @@
 # http://www.steves-internet-guide.com/send-json-data-mqtt-python/
 # https://github.com/mqtt/mqtt.github.io/wiki/public_brokers
 # http://blog.jorand.io/2017/08/02/MQTT-on-Unity/
+# http://www.steves-internet-guide.com/into-mqtt-python-client/
 
 from ev3dev.ev3 import *
 import ev3dev.ev3 as ev3 # package for EV3 Commands
@@ -20,12 +21,14 @@ from timeit import Timer
 ####### MQTT connection ##################
 
 import paho.mqtt.client as mqtt
+broker = "broker.hivemq.com"
+# broker="iot.eclipse.org"
 
-# This is the Publisher
-broker="iot.eclipse.org"
-client = mqtt.Client()
-client.connect(broker)
-
+def on_message(client, userdata, message):
+    print("message received " ,str(message.payload.decode("utf-8")))
+    print("message topic=",message.topic)
+    print("message qos=",message.qos)
+    print("message retain flag=",message.retain)
 
 #########################################
 
@@ -71,15 +74,32 @@ def getVoltage():
     voltage=(float(data)/9000000) 
     return voltage
 
+#####################################
+
+# This is the Publisher
+# broker="iot.eclipse.org"
+# client = mqtt.Client()
+# #client.on_message = on_message
+# client.connect(broker)
+# try:
+#   #client.on_message=on_message #attach function to callback
+#   client.connect(broker)
+# except: # TODO: quit after certain amount of time if client can't connect
+#   print("CONNECTION FAILED")
+#   exit(1)
+client = mqtt.Client()
+client.connect(broker)
+#client.on_message = on_message
 
 
 # calls thingworxPOST for all sensors while program is running
 def uploadData():
-   while True:
+  while True:
       try:
         dataToUpload = {'distance':getDist(),'color':colors[cl.value()],'angle':(gy.value() % 360),'touch':ts.value(),'power':getVoltage()}
         payload=json.dumps(dataToUpload) # convert to a json string
-        client.publish("topic/EV3ARProject", payload);
+        # client.subscribe("topic/EV3ARProject")
+        client.publish("topic/EV3ARProject", payload)
         print("payload published")
         sleep(1)
         #t = Timer(lambda: thingworxPOST(payload)) # for timing PUT request

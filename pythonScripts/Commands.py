@@ -23,7 +23,8 @@ import globals # shares global variables with EV3ARScript
 import paho.mqtt.client as mqtt
 
 # This is the Publisher
-broker="iot.eclipse.org"
+# broker="iot.eclipse.org"
+broker = "broker.hivemq.com"
 client = mqtt.Client()
 client.connect(broker)
 

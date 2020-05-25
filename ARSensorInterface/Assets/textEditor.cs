@@ -72,7 +72,8 @@ public class textEditor : MonoBehaviour
 
     // MQTT variables
     private MqttClient client;
-    private string broker = "iot.eclipse.org";
+    private string broker = "broker.hivemq.com";
+    // "iot.eclipse.org";
 
     // Start is called before the first frame update
     void Start()

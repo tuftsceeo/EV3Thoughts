@@ -35,7 +35,8 @@ def runEV3():
 def runInLoop():
   while True:
     print("hello")
-    sleep(5)
+    forward(2)
+    sleep(1)
 
 
  ################### CODE BELOW RUNS PROGRAM; DON'T TOUCH #####################

@@ -47,7 +47,7 @@ def runInLoop():
 def EV3Program(arr,runCode):
     globals.dirArray=arr # sets global array equal to multiprocessing array
     checkEV3(runCode) # check that all motors and sensors are connected
-    runInLoop() # runs EV3 code
+    runInLoop() # REPLACE WITH CORRECT FUNCTION FROM ABOVE
     runCode.value=False # switches boolean to turn off data upload
 
 

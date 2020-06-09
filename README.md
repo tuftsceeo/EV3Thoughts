@@ -1,6 +1,6 @@
 # Augmented Reality App for Visualizing EV3 Sensor Data
 Tufts University Center for Engineering Education and Outreach  
-Summer 2019  
+Summer 2019-2020  
 Main Contributors: Lily Zhang, Mohammed Emun  
 
 This Unity project visualizes EV3 sensor data published from an EV3 run with EV3DEV.

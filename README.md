@@ -9,7 +9,7 @@ The project is currently using **MQTT** to publish data to a public broker. Can 
 
 *ARSensorInterface*: Unity project containing AR app. textEdit.cs, found under Assets, contains the sensor data retrieval code and more information about how to modify it for REST APIs or MQTT.
 
-*pythonScripts*: folder containing python scripts to run on EV3 (using EV3DEV)
+*pythonScripts*: folder containing python scripts to run with EV3DEV
   * *Commands.py*: contains functions for movement, sensor data retrieval, and sensor data upload  
   * *Script.py*: editable file to run EV3 while uploading data (**Call this file in terminal**) 
   * *EV3ARInfo.txt*: documentation for functions in Commands.py
@@ -20,6 +20,8 @@ The project is currently using **MQTT** to publish data to a public broker. Can 
   * *driveEV3.py*: allows user to move EV3 around with keyboard
   * *globals.py*: contains shared variables between Commands.py and Script.py; do not edit 
   * *sftp-config.json*: sets up remote connection from terminal to EV3
+
+*LegoPythonScripts*: folder containing pythong scripts to run with Lego Education Micropython (files that start with *Lego* have the same purposes as those listed above)
 
 *thingmark.docx*: image target for AR app.
 

@@ -72,7 +72,7 @@ public class textEditor : MonoBehaviour
 
     // MQTT variables
     private MqttClient client;
-    private string broker = "broker.hivemq.com";
+    private string broker = "test.mosquitto.org"; //"broker.hivemq.com";
     // "iot.eclipse.org";
 
     // Start is called before the first frame update
@@ -162,8 +162,8 @@ public class textEditor : MonoBehaviour
             // also print in text panel?
         }
         // subscribe to the topic "topic/EV3ARProject" with QoS 1
-        client.Subscribe(new string[] { "topic/EV3ARProject" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE });
-        
+        client.Subscribe(new string[] { "EV3ARProject/DataUpload" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE }); // "topic/EV3ARProject"
+
         //StartCoroutine(GetRequest());
     }
 

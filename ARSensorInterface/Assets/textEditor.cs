@@ -72,7 +72,9 @@ public class textEditor : MonoBehaviour
 
     // MQTT variables
     private MqttClient client;
-    private string broker = "broker.hivemq.com";
+
+    //private string broker = "test.mosquitto.org"; 
+    private string broker  = "broker.hivemq.com";
     // "iot.eclipse.org";
 
     // Start is called before the first frame update
@@ -153,7 +155,7 @@ public class textEditor : MonoBehaviour
         try
         {
             client.Connect(clientId);
-            Debug.Log("CONNECTED");
+            Debug.Log("Client is CONNECTED");
         }
         catch (System.Exception e)
         {
@@ -162,8 +164,10 @@ public class textEditor : MonoBehaviour
             // also print in text panel?
         }
         // subscribe to the topic "topic/EV3ARProject" with QoS 1
-        client.Subscribe(new string[] { "topic/EV3ARProject" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE });
-        
+
+        client.Subscribe(new string[] { "topic/EV3ARProject" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE }); // "topic/EV3ARProject"
+        //client.Subscribe(new string[] { "EV3ARProject/DataUpload" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE }); // "topic/EV3ARProject"
+
         //StartCoroutine(GetRequest());
     }
 
@@ -171,10 +175,10 @@ public class textEditor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("INSIDE UPDATE");
+        //Debug.Log("INSIDE UPDATE");
         // Battery Power
         //float battery_power = .78F;
-        Debug.Log("BATTERY READING INSIDE UPDATE IS " + batteryReading);
+        //Debug.Log("BATTERY READING INSIDE UPDATE IS " + batteryReading);
         // check if any values are null; if so, break
         // if batteryReading is null, so are the rest
         if (batteryReading == null) {
@@ -198,22 +202,39 @@ public class textEditor : MonoBehaviour
         BatteryPower.UpdateBar(battery_power, 1);
 
         string touch_output;
+
         if (touchReading.ToString() == "1")
             touch_output = "True";
         else if (touchReading.ToString() == "0")
             touch_output = "False";
         else
             touch_output = "what the heck";
+          
 
 
         // update text panel display
-        Debug.Log("PRINTING STRING INSIDE UPDATE");
-        string output = "Distance: " + distReading.ToString() + "cm" + "\n" + "Angle: " + angleReading.ToString() + "\n" + "Color: " + colorReading.ToString() + "\n" + "Touch: " + touch_output;
-        Debug.Log(output);
+        //Debug.Log("PRINTING STRING INSIDE UPDATE");
+
+
+        string output = "Distance: " + distReading.ToString() + "cm" +
+            "\n" + "Angle: " + angleReading.ToString() +
+            "\n"  + colorReading.ToString() +
+            "\n" + "Touch: " + touch_output;
+        /*
+       
+        string output = "Distance: " + distReading.ToString() + "cm" +
+            "\n" + "Angle: " + angleReading.ToString() +
+            "\n" + "Color: " + "white" +
+            "\n" + "Touch: " + touch_output;
+        
+        */
+        //Debug.Log(output);
         tmProh.text = output;
         tmpText.text = output;
 
+
         string color = colorReading.ToString();
+        //string color = "white";
         Color32 brown = new Color32(114, 96, 96, 255);
         // sets text bubble to corresponding color reading
         switch (color)
@@ -758,14 +779,19 @@ public class textEditor : MonoBehaviour
     // Sets visualization variables with updated values
     void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
     {
-        Debug.Log("INSIDE MQTT MSG PUBLISH RECEIVEED");
+//        Debug.Log("INSIDE MQTT MSG PUBLISH RECEIVEED");
         // handle message received 
         string msg = System.Text.Encoding.UTF8.GetString(e.Message);
-        Debug.Log("Received message from " + e.Topic + " : " + msg);
+    
 
+        //Debug.Log(msg);
+        //Debug.Log("Received message from " + e.Topic + " : " + msg);
+        
         // deserialize json?
         // https://gist.github.com/darktable/1411710
         var rowData = Json.Deserialize(msg) as Dictionary<string, object>;
+
+
 
         //// put all property names into a list
         //List<string> keyVals = new List<string>(rowData.Keys);
@@ -774,26 +800,23 @@ public class textEditor : MonoBehaviour
         //    Debug.Log(key1 + ": " + rowData[key1]);
         //}
 
-        Debug.Log("PRINTING ACTUAL VALUES");
+        //Debug.Log("PRINTING ACTUAL VALUES");
         distReading = rowData["distance"];
-        Debug.Log("distance is " + distReading);
-        colorReading = rowData["color"];
-        Debug.Log("color is " + colorReading);
         angleReading = rowData["angle"];
-        Debug.Log("angle is " + angleReading);
+        batteryReading = rowData["power"];
         touchReading = rowData["touch"];
-        Debug.Log("touch is " + touchReading);
-        forwardReading = rowData["forward"];
-        Debug.Log("forward is " + forwardReading);
-        rightReading = rowData["right"];
-        Debug.Log("right is " + rightReading);
-        leftReading = rowData["left"];
-        Debug.Log("left is " + leftReading);
+        colorReading = rowData["color"];
+       
+        //forwardReading = rowData["forward"];
+        //Debug.Log("forward is " + forwardReading);
+        //rightReading = rowData["right"];
+        //Debug.Log("right is " + rightReading);
+        //leftReading = rowData["left"];
+        //Debug.Log("left is " + leftReading);
         //scriptReading = rowData["script"];
         //Debug.Log("script is " + scriptReading);
-        batteryReading = rowData["power"];
-        Debug.Log("power is " + batteryReading);
-
+        //Debug.Log("power is " + batteryReading);
+        
     }
 }
 

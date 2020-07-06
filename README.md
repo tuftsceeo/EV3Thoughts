@@ -26,3 +26,10 @@ The project is currently using **MQTT** to publish data to a public broker. Can 
 An example project can be found at https://www.steamdiscoverylab.com/ar-obstacle-course-with-ev3.html  
 
 More documentation on Unity, Thingworx, and working with the EV3 (**including setup and code execution**) can be found at https://docs.google.com/document/d/1_b_NURj-R-_8KY1QK9YQbj9vGlIBPN0UUgQzuAot95U/edit?usp=sharing
+
+Changes made to connect EV3Thoughts with Unity project:
+- changed broker name to "broker.hivemq.com" in CommandsLego.py
+- changed the topic name to "topic/EV3ARProject"
+- changed the return type of getColor() function in CommandsLego.py to string.
+- changed the return type of getTouch() function in CommandsLego.py to int.
+- changed the recieving script textEditor.cs to match the changes made in CommandsLego.py

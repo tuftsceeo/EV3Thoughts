@@ -3,6 +3,15 @@ Tufts University Center for Engineering Education and Outreach
 Summer 2019-2020  
 Main Contributors: Lily Zhang, Mohammed Emun  
 
+**UPDATES: should currently edit and push to LegoEd branch!**
+
+Notes on running Micropython from terminal:  
+ *To start REPL: brickrun -r --  pybricks-micropython    
+ *To exit REPL: Ctrl-d  
+ *To run program: brickrun -r --  pybricks-micropython “programName.py”  
+ *Can also run regular python by starting python interpreter
+
+
 This Unity project visualizes EV3 sensor data published from an EV3 run with EV3DEV.
 
 The project is currently using **MQTT** to publish data to a public broker. Can be adjusted to use **REST APIs** to publish data to Thingworx Composer instead - see files below (**will need a Composer account**).

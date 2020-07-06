@@ -7,22 +7,38 @@
 # on command line
 # NOTE: THIS SCRIPT USES MQTT
 
-from CommandsLego import * # uses functions from EV3ARCommands.py
 
+from CommandsLego import * # uses functions from EV3ARCommands.py
 
 ################## WRITE YOUR CODE BELOW ###############
 
 # Write your code here!
-
 def runInLoop():
-  for i in range(3):
-    print("hello")
-    forward(1)
-    left()
-    right()
-    utime.sleep(1)
+ 
+  while(True):
+    forward(5)
+    backward(5)
+    getTouch()
+    getColor()
+    getAngle()
+    getDist()
+    utime.sleep(0.1)
+    '''    
 
 
+    key = input("press a")
+    print(key)
+    if key == "a":
+      print("pressed a")
+      left()
+    elif key == 'w':
+      forward(1)
+    elif key == 'd':
+      right()
+    elif key == 's':
+      backward(1)
+    
+    '''  
  ################### CODE BELOW RUNS PROGRAM; DON'T TOUCH #####################
 
 ### This prepares some behind-the-scenes stuff ###

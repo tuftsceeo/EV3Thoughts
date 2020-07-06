@@ -27,9 +27,10 @@ import sys, os
 # broker with 'sudo service mosquitto start'
 
 from umqtt.robust import MQTTClient
-# broker = "broker.hivemq.com"
+broker = "broker.hivemq.com"
 # broker="iot.eclipse.org"
-MQTT_Broker = 'test.mosquitto.org'
+# broker  = 'test.mosquitto.org'
+MQTT_Broker = broker
 
 # Define a namespace for all messages
 MQTT_Topic_Status = 'EV3ARProject/DataUpload'
@@ -42,6 +43,7 @@ MQTT_Topic_Status = 'EV3ARProject/DataUpload'
 os.system('hostname > /dev/shm/hostname.txt')
 file = open('/dev/shm/hostname.txt', 'r')
 MQTT_ClientID = file.readline().rstrip('\n')
+#print("Client ID is: " + MQTT_ClientID)
 file.close()
 os.system('rm /dev/shm/hostname.txt')
 
@@ -74,13 +76,14 @@ def uploadData():
       #print("runCode is", runCode)
       #print(arr[:]) 
       # temp = {'forward':arr[0],'right':arr[1],'left':arr[2],'distance':getDist(),'color':colors[cl.value()],'angle':(gy.value() % 360),'touch':ts.value(),'power':getVoltage(),'script':'hello what is happening'}
-      temp = {'distance':getDist(),'color':cl.color(),'angle':(gy.angle() % 360),'touch':ts.pressed(),'power':getVoltage()}
+      temp = {'distance':getDist(),'color':getColor() ,'angle':(gy.angle() % 360),'touch':getTouch(),'power':getVoltage()}
       #t = Timer(lambda: thingworxPOST(temp)) # reads time to upload to Thingworx
       #print("Upload time:",t.timeit(number=1))
       payload=ujson.dumps(temp)
       #print(payload)
       client.publish("topic/EV3ARProject", payload)
-      print("payload published successfully")
+
+      #print("payload published successfully")
       utime.sleep(.5)
     except:
       print("whoops! Payload not published")
@@ -160,7 +163,7 @@ def getDist():
 
 # returns color detected
 def getColor():
-  return cl.color()
+  return str(cl.color())
 
 # returns angle from original at startup
 def getAngle():
@@ -169,14 +172,17 @@ def getAngle():
 # returns whether touch sensor is pressed
 # note: might not work on AR bc touch is so quick
 def getTouch():
-  return ts.pressed()
+  if (ts.pressed()):
+    return 1
+  else: 
+    return 0
 
 
 ### MOTOR CONTROLS ###
 # dirArray: [forward, right, left]; 1==true
 
 
-def forward(time,speed=200,angle=600):
+def forward(time,speed=100,angle=600):
   print("forward")
   # currAngle = angle
   # if angle > 360:
@@ -235,7 +241,7 @@ def right():
   stop()
 
 
-def backward(time,speed=200,angle=600):
+def backward(time,speed=100,angle=600):
   # currAngle = angle
   # if angle > 360:
   #   currAngle = getAngle()

@@ -44,3 +44,13 @@ Changes made to connect EV3Thoughts with Unity project:
 - changed the return type of getColor() function in CommandsLego.py to string.
 - changed the return type of getTouch() function in CommandsLego.py to int.
 - changed the recieving script textEditor.cs to match the changes made in CommandsLego.py
+- changed the vuforia target image to a 3D scan of the EV3 brick.
+
+To run EV3Thoughts:
+- In a terminal windoe, ssh into the EV3 with: `$ ssh robot@IPAddress` and enter password.
+- Navigate to the LegoPythonScripts directory.
+- Run the ScriptLego.py script with: `$ brickrun -r -- pybricks-micropython ScriptLego.py`
+- Open Unity project, connect USB camera and select said camera within the "AR Camera" Game Object located within the Hierachy > Open Vuforia Engine Configuration > Camera Device. 
+- Hit the play button, and focus the USB camera on the EV3 robot (You should see a Sensor Panel with the current sensor readings). 
+
+

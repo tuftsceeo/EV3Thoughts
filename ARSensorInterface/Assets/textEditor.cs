@@ -77,9 +77,16 @@ public class textEditor : MonoBehaviour
     private string broker  = "broker.hivemq.com";
     // "iot.eclipse.org";
 
+    //added gameobject for the touchSensor indicator
+    public GameObject touchSphere;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        //set touchSensor indicator as inactive on start
+        touchSphere.SetActive(false);
+
         // initialize visualization locations
         if (PlayerPrefs.GetInt("player_prefs_color") == 1)
         {
@@ -202,39 +209,38 @@ public class textEditor : MonoBehaviour
         BatteryPower.UpdateBar(battery_power, 1);
 
         string touch_output;
+        
 
+        // change the active status on the touchSensor indicator
         if (touchReading.ToString() == "1")
+        {
             touch_output = "True";
+            touchSphere.SetActive(true);
+        }
         else if (touchReading.ToString() == "0")
+        {
             touch_output = "False";
+            touchSphere.SetActive(false);
+        }
         else
             touch_output = "what the heck";
-          
-
 
         // update text panel display
         //Debug.Log("PRINTING STRING INSIDE UPDATE");
 
+        string color = colorReading.ToString().Split('.')[1].ToLower();
 
         string output = "Distance: " + distReading.ToString() + "cm" +
             "\n" + "Angle: " + angleReading.ToString() +
-            "\n"  + colorReading.ToString() +
+            "\n"  + "Color: " + color.ToUpper() +
             "\n" + "Touch: " + touch_output;
-        /*
-       
-        string output = "Distance: " + distReading.ToString() + "cm" +
-            "\n" + "Angle: " + angleReading.ToString() +
-            "\n" + "Color: " + "white" +
-            "\n" + "Touch: " + touch_output;
-        
-        */
-        //Debug.Log(output);
+
+        //var colorStringSplit = colorReading.ToString().Split('.');
+      
         tmProh.text = output;
         tmpText.text = output;
 
-
-        string color = colorReading.ToString();
-        //string color = "white";
+        
         Color32 brown = new Color32(114, 96, 96, 255);
         // sets text bubble to corresponding color reading
         switch (color)

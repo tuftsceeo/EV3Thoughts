@@ -151,7 +151,11 @@ public class textEditor : MonoBehaviour
 
         // initialize panel text
         tmProh = GetComponent<TextMeshPro>() ?? gameObject.AddComponent<TextMeshPro>();
-        tmpText.text = "LOADING...";
+
+        tmpText.text = "Distance: " + 0 + "cm" +
+           "\n" + "Angle: " + 0 +
+           "\n" + "Color: " + "--" +
+           "\n" + "Touch: " + "--" ;
         tmProh.text = tmpText.text;
 
         // initialize MQTT connection
@@ -210,7 +214,6 @@ public class textEditor : MonoBehaviour
 
         string touch_output;
         
-
         // change the active status on the touchSensor indicator
         if (touchReading.ToString() == "1")
         {
@@ -228,22 +231,20 @@ public class textEditor : MonoBehaviour
         // update text panel display
         //Debug.Log("PRINTING STRING INSIDE UPDATE");
 
-        string color = colorReading.ToString().Split('.')[1].ToLower();
-
+        //string color = colorReading.ToString().Split('.')[1].ToLower();
+        
         string output = "Distance: " + distReading.ToString() + "cm" +
             "\n" + "Angle: " + angleReading.ToString() +
-            "\n"  + "Color: " + color.ToUpper() +
+            "\n"  + "Color: " + colorReading.ToString().ToLower() +
             "\n" + "Touch: " + touch_output;
-
-        //var colorStringSplit = colorReading.ToString().Split('.');
-      
+        
         tmProh.text = output;
         tmpText.text = output;
 
         
         Color32 brown = new Color32(114, 96, 96, 255);
         // sets text bubble to corresponding color reading
-        switch (color)
+        switch (colorReading.ToString())
         {
 
             case "white":
@@ -788,14 +789,37 @@ public class textEditor : MonoBehaviour
 //        Debug.Log("INSIDE MQTT MSG PUBLISH RECEIVEED");
         // handle message received 
         string msg = System.Text.Encoding.UTF8.GetString(e.Message);
-    
+        Debug.Log(msg);
+
+        
+        string sensor_name = msg.Split(':')[0];
+        string sensor_val = msg.Split(':')[1];
+
+        switch (sensor_name)
+        {
+            case "Touch":
+                touchReading = sensor_val;
+                break;
+            case "Gyro":
+                angleReading = sensor_val;
+                break;
+            case "Ultrasonic":
+                distReading = System.Int16.Parse(sensor_val)/10f;
+                break;
+            case "Color":
+                colorReading = sensor_val;
+                break;
+        }
+
+      
+
 
         //Debug.Log(msg);
         //Debug.Log("Received message from " + e.Topic + " : " + msg);
-        
+
         // deserialize json?
         // https://gist.github.com/darktable/1411710
-        var rowData = Json.Deserialize(msg) as Dictionary<string, object>;
+        //var rowData = Json.Deserialize(msg) as Dictionary<string, object>;
 
 
 
@@ -807,12 +831,13 @@ public class textEditor : MonoBehaviour
         //}
 
         //Debug.Log("PRINTING ACTUAL VALUES");
+        /*
         distReading = rowData["distance"];
         angleReading = rowData["angle"];
         batteryReading = rowData["power"];
         touchReading = rowData["touch"];
         colorReading = rowData["color"];
-       
+       */
         //forwardReading = rowData["forward"];
         //Debug.Log("forward is " + forwardReading);
         //rightReading = rowData["right"];
@@ -822,7 +847,7 @@ public class textEditor : MonoBehaviour
         //scriptReading = rowData["script"];
         //Debug.Log("script is " + scriptReading);
         //Debug.Log("power is " + batteryReading);
-        
+
     }
 }
 

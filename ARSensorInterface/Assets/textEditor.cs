@@ -43,6 +43,15 @@ public class textEditor : MonoBehaviour
     Vector3 temp_5;
     private TMPro.TextMeshPro tmProh;
     public TextMeshProUGUI tmpText;
+    public TextMeshProUGUI Action_Text;
+
+    private object motor_port = 0;
+    private object motor_time = 0;
+    private object motor_speed = 0;
+    private object motor_action = 0;
+    private object motor_position = 0;
+  
+    private object sensorReading = 0;
     private object distReading = 0;
     private object colorReading = 0;
     private object angleReading = 0;
@@ -69,6 +78,8 @@ public class textEditor : MonoBehaviour
     private double y_mov_total_val;
     private double z_mov_total_val;
     private bool apply;
+
+    private string sensor_name;
 
     // MQTT variables
     private MqttClient client;
@@ -151,6 +162,8 @@ public class textEditor : MonoBehaviour
 
         // initialize panel text
         tmProh = GetComponent<TextMeshPro>() ?? gameObject.AddComponent<TextMeshPro>();
+
+        Action_Text.text = "No action recieved";
 
         tmpText.text = "Distance: " + 0 + "cm" +
            "\n" + "Angle: " + 0 +
@@ -241,7 +254,55 @@ public class textEditor : MonoBehaviour
         tmProh.text = output;
         tmpText.text = output;
 
-        
+        switch (sensor_name)
+        {
+            case "Touch":
+                Action_Text.text = "Touch Sensor: " + touch_output;
+                break;
+            case "Gyro":
+                Action_Text.text = "Gyro Sensor: " + sensorReading.ToString() + "Deg.";
+                break;
+            case "Ultrasonic":
+                Action_Text.text = "Ultrasonic Sensor: " + sensorReading.ToString();
+                break;
+            case "Color":
+                Action_Text.text = "Color Sensor: " + sensorReading.ToString();
+                break;
+
+            case "Motor":
+
+                if (motor_action.ToString() == "Stop")
+                {
+                    Action_Text.text = "Motor: " + motor_action;
+                }
+                else if (motor_action.ToString() == "run_Forever")
+                {
+                    Action_Text.text = "Motor: " + "Ports: " + motor_port + " Speed: " + motor_speed + " Action: " + motor_action;
+                }
+                else if (motor_action.ToString() == "reset")
+                {
+                    Action_Text.text = "Motor: " + motor_action;
+                }
+                else if (motor_action.ToString() == "run_timed")
+                {
+                    Action_Text.text = "Motor: " + "Ports: " + motor_port + " Speed: " + motor_speed + " Duration: " + motor_time + " Action: " + motor_action;
+                }
+                else if (motor_action.ToString() == "stop_all")
+                {
+                    Action_Text.text = "Motor: " + motor_action;
+                }
+                else if (motor_action.ToString() == "run_to_abs_pos")
+                {
+                    Action_Text.text = "Motor: " + "Ports: " + motor_port + " Speed: " + motor_speed + " Position: " + motor_position + " Action: " + motor_action;
+                }
+                else if (motor_action.ToString() == "run_to_rel_pos")
+                {
+                    Action_Text.text = "Motor: " + "Ports: " + motor_port + " Speed: " + motor_speed + " Position: " + motor_position + " Action: " + motor_action;
+                }
+                break;
+        }
+
+
         Color32 brown = new Color32(114, 96, 96, 255);
         // sets text bubble to corresponding color reading
         switch (colorReading.ToString())
@@ -792,27 +853,42 @@ public class textEditor : MonoBehaviour
         Debug.Log(msg);
 
         
-        string sensor_name = msg.Split(':')[0];
-        string sensor_val = msg.Split(':')[1];
-
-        switch (sensor_name)
+        if (msg.Split(':').Length > 2)
         {
-            case "Touch":
-                touchReading = sensor_val;
-                break;
-            case "Gyro":
-                angleReading = sensor_val;
-                break;
-            case "Ultrasonic":
-                distReading = System.Int16.Parse(sensor_val)/10f;
-                break;
-            case "Color":
-                colorReading = sensor_val;
-                break;
+            sensor_name = "Motor";
+            motor_port = msg.Split(':')[0].ToString();
+            motor_speed = msg.Split(':')[1].ToString();
+            motor_time = msg.Split(':')[2].ToString() + " sec";
+            motor_position = msg.Split(':')[3].ToString() + "deg";
+            motor_action =  msg.Split(':')[4].ToString();
         }
 
-      
+        else
+        {
+            sensor_name = msg.Split(':')[0];
+            string sensor_val = msg.Split(':')[1];
 
+            switch (sensor_name)
+            {
+                case "Touch":
+                    touchReading = sensor_val;
+                    sensorReading = touchReading;
+                    break;
+                case "Gyro":
+                    angleReading = sensor_val;
+                    sensorReading = angleReading;
+                    break;
+                case "Ultrasonic":
+                    distReading = System.Int16.Parse(sensor_val) / 10f;
+                    sensorReading = distReading;
+                    break;
+                case "Color":
+                    colorReading = sensor_val;
+                    sensorReading = colorReading;
+                    break;
+            }
+        
+        }
 
         //Debug.Log(msg);
         //Debug.Log("Received message from " + e.Topic + " : " + msg);

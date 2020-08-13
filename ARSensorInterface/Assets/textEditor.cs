@@ -56,6 +56,12 @@ public class textEditor : MonoBehaviour
     private object colorReading = 0;
     private object angleReading = 0;
     private object touchReading = 0;
+
+    private object distReading2 = 0;
+    private object colorReading2 = 0;
+    private object angleReading2 = 0;
+    private object touchReading2 = 0;
+
     private object forwardReading = 0;
     private object rightReading = 0;
     private object leftReading = 0;
@@ -164,7 +170,7 @@ public class textEditor : MonoBehaviour
         // initialize panel text
         tmProh = GetComponent<TextMeshPro>() ?? gameObject.AddComponent<TextMeshPro>();
 
-        Action_Text.text = "No action recieved";
+        Action_Text.text = "No action recieved yet";
 
         tmpText.text = "Distance: " + "--" + "cm" +
            "\n" + "Angle: " + "--" +
@@ -181,10 +187,11 @@ public class textEditor : MonoBehaviour
         client2.MqttMsgPublishReceived += client2_MqttMsgPublishReceived;
 
         string clientId = System.Guid.NewGuid().ToString();
+        string clientId2 = System.Guid.NewGuid().ToString();
         try
         {
             client.Connect(clientId);
-            client2.Connect(clientId);
+            client2.Connect(clientId2);
 
             Debug.Log("Client is CONNECTED");
         }
@@ -197,7 +204,7 @@ public class textEditor : MonoBehaviour
         // subscribe to the topic "topic/EV3ARProject" with QoS 1
 
         client.Subscribe(new string[] { "topic/EV3ARProject" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE }); // "topic/EV3ARProject"
-        client2.Subscribe(new string[] { "topic/EV3Sensors" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE }); // "topic/EV3ARProject"
+        client2.Subscribe(new string[] { "topic/EV3Sensors" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE }); // "topic/EV3Sensors"
 
         //client.Subscribe(new string[] { "EV3ARProject/DataUpload" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE }); // "topic/EV3ARProject"
 
@@ -237,12 +244,12 @@ public class textEditor : MonoBehaviour
         string touch_output;
         
         // change the active status on the touchSensor indicator
-        if (touchReading.ToString() == "1")
+        if (touchReading.ToString() == "1" || touchReading2.ToString() == "1")
         {
             touch_output = "True";
             touchSphere.SetActive(true);
         }
-        else if (touchReading.ToString() == "0")
+        else if (touchReading.ToString() == "0" || touchReading2.ToString() == "0")
         {
             touch_output = "False";
             touchSphere.SetActive(false);
@@ -255,9 +262,9 @@ public class textEditor : MonoBehaviour
 
         //string color = colorReading.ToString().Split('.')[1].ToLower();
         
-        string output = "Distance: " + distReading.ToString() + "cm" +
-            "\n" + "Angle: " + angleReading.ToString() +
-            "\n"  + "Color: " + colorReading.ToString().ToLower() +
+        string output = "Distance: " + distReading2.ToString() + "cm" +
+            "\n" + "Angle: " + angleReading2.ToString() +
+            "\n"  + "Color: " + colorReading2.ToString().ToLower() +
             "\n" + "Touch: " + touch_output;
         
         tmProh.text = output;
@@ -269,7 +276,7 @@ public class textEditor : MonoBehaviour
                 Action_Text.text = "Touch Sensor: " + touch_output;
                 break;
             case "Gyro":
-                Action_Text.text = "Gyro Sensor: " + sensorReading.ToString() + "Deg.";
+                Action_Text.text = "Gyro Sensor: " + sensorReading.ToString() + " Deg.";
                 break;
             case "Ultrasonic":
                 Action_Text.text = "Ultrasonic Sensor: " + sensorReading.ToString();
@@ -314,7 +321,7 @@ public class textEditor : MonoBehaviour
 
         Color32 brown = new Color32(114, 96, 96, 255);
         // sets text bubble to corresponding color reading
-        switch (colorReading.ToString())
+        switch (colorReading2.ToString())
         {
 
             case "white":
@@ -343,7 +350,7 @@ public class textEditor : MonoBehaviour
                 break;
         }
         // This is where the cone updates
-        double size_cone = double.Parse(distReading.ToString());
+        double size_cone = double.Parse(distReading2.ToString());
         // Convert to inches
         size_cone = size_cone/3.2;
         // Convert to cm
@@ -851,27 +858,26 @@ public class textEditor : MonoBehaviour
         return auth;
     }
 
-    void client2_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
+    void client2_MqttMsgPublishReceived(object sender2, MqttMsgPublishEventArgs e)
     {
-        string msg = System.Text.Encoding.UTF8.GetString(e.Message);
+        string msg2 = System.Text.Encoding.UTF8.GetString(e.Message);
         //Debug.Log(msg);
 
-        distReading = System.Int16.Parse(msg.Split(':')[0]) / 10f;
-        angleReading = msg.Split(':')[1];
-        touchReading = msg.Split(':')[2];
-        colorReading = msg.Split(':')[3];
+        distReading2 = System.Int16.Parse(msg2.Split(':')[0]) / 10f;
+        angleReading2 = msg2.Split(':')[1];
+        touchReading2 = msg2.Split(':')[2];
+        colorReading2 = msg2.Split(':')[3];
 
     }
 
     // Handles incoming MQTT messages
     // Sets visualization variables with updated values
-    void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
+    void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs f)
     {
-//        Debug.Log("INSIDE MQTT MSG PUBLISH RECEIVEED");
+        //Debug.Log("INSIDE MQTT MSG PUBLISH RECEIVEED");
         // handle message received 
-        string msg = System.Text.Encoding.UTF8.GetString(e.Message);
-        //Debug.Log(msg);
-
+        string msg = System.Text.Encoding.UTF8.GetString(f.Message);
+        Debug.Log(msg);
         
         if (msg.Split(':').Length > 2)
         {

@@ -83,6 +83,7 @@ public class textEditor : MonoBehaviour
 
     // MQTT variables
     private MqttClient client;
+    private MqttClient client2;
 
     //private string broker = "test.mosquitto.org"; 
     private string broker  = "broker.hivemq.com";
@@ -165,20 +166,26 @@ public class textEditor : MonoBehaviour
 
         Action_Text.text = "No action recieved";
 
-        tmpText.text = "Distance: " + 0 + "cm" +
-           "\n" + "Angle: " + 0 +
+        tmpText.text = "Distance: " + "--" + "cm" +
+           "\n" + "Angle: " + "--" +
            "\n" + "Color: " + "--" +
            "\n" + "Touch: " + "--" ;
         tmProh.text = tmpText.text;
 
         // initialize MQTT connection
         client = new MqttClient(broker);
+        client2 = new MqttClient(broker);
+
         // register to message received 
         client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
+        client2.MqttMsgPublishReceived += client2_MqttMsgPublishReceived;
+
         string clientId = System.Guid.NewGuid().ToString();
         try
         {
             client.Connect(clientId);
+            client2.Connect(clientId);
+
             Debug.Log("Client is CONNECTED");
         }
         catch (System.Exception e)
@@ -190,6 +197,8 @@ public class textEditor : MonoBehaviour
         // subscribe to the topic "topic/EV3ARProject" with QoS 1
 
         client.Subscribe(new string[] { "topic/EV3ARProject" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE }); // "topic/EV3ARProject"
+        client2.Subscribe(new string[] { "topic/EV3Sensors" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE }); // "topic/EV3ARProject"
+
         //client.Subscribe(new string[] { "EV3ARProject/DataUpload" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE }); // "topic/EV3ARProject"
 
         //StartCoroutine(GetRequest());
@@ -842,6 +851,17 @@ public class textEditor : MonoBehaviour
         return auth;
     }
 
+    void client2_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
+    {
+        string msg = System.Text.Encoding.UTF8.GetString(e.Message);
+        //Debug.Log(msg);
+
+        distReading = System.Int16.Parse(msg.Split(':')[0]) / 10f;
+        angleReading = msg.Split(':')[1];
+        touchReading = msg.Split(':')[2];
+        colorReading = msg.Split(':')[3];
+
+    }
 
     // Handles incoming MQTT messages
     // Sets visualization variables with updated values
@@ -850,7 +870,7 @@ public class textEditor : MonoBehaviour
 //        Debug.Log("INSIDE MQTT MSG PUBLISH RECEIVEED");
         // handle message received 
         string msg = System.Text.Encoding.UTF8.GetString(e.Message);
-        Debug.Log(msg);
+        //Debug.Log(msg);
 
         
         if (msg.Split(':').Length > 2)

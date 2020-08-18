@@ -46,11 +46,27 @@ Changes made to connect EV3Thoughts with Unity project:
 - changed the recieving script textEditor.cs to match the changes made in CommandsLego.py
 - changed the vuforia target image to a 3D scan of the EV3 brick.
 
-To run EV3Thoughts:
+## To run EV3Thoughts:
 - In a terminal window, ssh into the EV3 with: `$ ssh robot@IPAddress` and enter password.
 - Navigate to the LegoPythonScripts directory.
 - Run the ScriptLego.py script with: `$ brickrun -r -- pybricks-micropython ScriptLego.py`
 - Open Unity project, connect USB camera and select said camera within the "AR Camera" Game Object located within the Hierachy > Open Vuforia Engine Configuration > Camera Device. 
 - Hit the play button, then hit start (no host, U/N is necessary) and focus the USB camera on the EV3 robot (You should see a Sensor Panel with the current sensor readings). 
 
+## Requirements to view on Zoom application:
+[UnityCam](https://github.com/mrayy/UnityCam)
+1. Before using, access folder "RunMe First", access the target platform folder (x32,x64) which depends on the application you will use to view the virtual camera in. Right click on "Register.bat" and choose "Run as Administrator" to register UnityCam plugin in Windows. A window will appear to confirm that the plugin was successfully registered.
 
+2. Inside unity, attach to the main camera the following component: UnityCam\Scripts\UnityCam.cs
+
+3. Hit Play, now unity will stream whatever being rendered as a webcamera. You can use it in browser or any video capture program via the new camera UnityCam.
+
+4. You might need to copy the contents within the UnitySample/Assets/ folder within your own Unity Assets folder. 
+
+Check the included sample scene for a fully working example.
+
+[Webcamoid](https://webcamoid.github.io/)
+1. Download and install Webcamoid, this serves as a virtual webcam that you can select when using Zoom. By assigning UnityCam to the virtual webcam, users will see Unity's game window.
+2. Within the "Configure Sources" tab at the bottom, select "UnityCam" as the active camera. Then go into Settings>Output and check off the Virtual camera box. Add a device to create the virtural camera that is linked to the UnityCam and give a name like "Unity_Cam_Feed".
+3. Now hit the "Play" button which should now stream Unity's camera whenever you enter game mode. 
+4. In Zoom, you should be able to see a new camera option, "Unity_Cam_Feed".
